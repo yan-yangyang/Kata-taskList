@@ -1,12 +1,13 @@
 package com.codurance.training.tasks;
 
 import com.codurance.training.tasks.entity.*;
+import com.codurance.training.tasks.usecase.*;
+import com.codurance.training.tasks.usecase.Error;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.*;
 
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
