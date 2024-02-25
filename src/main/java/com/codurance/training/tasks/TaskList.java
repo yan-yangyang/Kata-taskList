@@ -1,18 +1,16 @@
 package com.codurance.training.tasks;
 
+import com.codurance.training.tasks.entity.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
-
-    private final Map<String, List<Task>> tasks = new LinkedHashMap<>();
+    private final CheckList checkList = new CheckList();
     private final BufferedReader in;
     private final PrintWriter out;
 
@@ -72,10 +70,10 @@ public final class TaskList implements Runnable {
     }
 
     private void show() {
-        for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
-            out.println(project.getKey());
-            for (Task task : project.getValue()) {
-                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
+        for (Project project : checkList.projects) {
+            out.println(project.name);
+            for (Task task : project.tasks) {
+                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId().value(), task.getDescription());
             }
             out.println();
         }
@@ -93,17 +91,18 @@ public final class TaskList implements Runnable {
     }
 
     private void addProject(String name) {
-        tasks.put(name, new ArrayList<Task>());
+        checkList.add(Project.of(ProjectName.of(name)));
     }
 
-    private void addTask(String project, String description) {
-        List<Task> projectTasks = tasks.get(project);
-        if (projectTasks == null) {
-            out.printf("Could not find a project with the name \"%s\".", project);
+    private void addTask(String projectName, String description) {
+        Optional<Project> project = checkList.get(ProjectName.of(projectName));
+        if (project.isEmpty()) {
+            out.printf("Could not find a project with the name \"%s\".", projectName);
             out.println();
             return;
         }
-        projectTasks.add(new Task(nextId(), description, false));
+        List<Task> projectTasks = project.get().tasks;
+        projectTasks.add(new Task(TaskId.of(nextId()), description, false));
     }
 
     private void check(String idString) {
@@ -116,9 +115,9 @@ public final class TaskList implements Runnable {
 
     private void setDone(String idString, boolean done) {
         int id = Integer.parseInt(idString);
-        for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
-            for (Task task : project.getValue()) {
-                if (task.getId() == id) {
+        for (Project project : checkList.projects) {
+            for (Task task : project.tasks) {
+                if (task.getId().value() == id) {
                     task.setDone(done);
                     return;
                 }
