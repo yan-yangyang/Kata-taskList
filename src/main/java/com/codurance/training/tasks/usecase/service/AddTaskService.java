@@ -22,14 +22,17 @@ public class AddTaskService implements AddTaskUseCase {
     @Override
     public CqrsOutput execute(AddTaskInput input) {
         try {
-            CheckList checkList = repository.findById(CheckListId.of(input.getCheckListId())).orElse(null);
+            CheckList checkList = repository.findById(CheckListId.of(input.checkListId())).orElse(null);
             if (null == checkList) {
                 return CqrsOutput.create().setExitCode(ExitCode.FAILURE);
             }
-            if (!checkList.contains(input.getProjectName())) {
-                return CqrsOutput.create().setExitCode(ExitCode.FAILURE).setMessage(format("Could not find a project with the name \"%s\".\n", input.getProjectName()));
+            if (!checkList.contains(input.projectName())) {
+                return CqrsOutput.create().setExitCode(ExitCode.FAILURE).setMessage(format("Could not find a project with the name \"%s\".\n", input.projectName()));
             }
-            checkList.addTask(ProjectName.of(input.getProjectName()), input.getTaskDescription());
+            checkList.addTask(ProjectName.of(input.projectName()), input.taskDescription());
+
+            repository.save(checkList);
+
             return CqrsOutput.create().setExitCode(ExitCode.SUCCESS);
         } catch (Exception e) {
             throw new UseCaseFailureException(e);

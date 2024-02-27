@@ -1,8 +1,17 @@
 package com.codurance.training.tasks;
 
+import com.codurance.training.tasks.adapter.InMemoryCheckListRepository;
 import com.codurance.training.tasks.entity.*;
-import com.codurance.training.tasks.usecase.*;
-import com.codurance.training.tasks.usecase.Error;
+import com.codurance.training.tasks.usecase.CheckListRepository;
+import com.codurance.training.tasks.usecase.addproject.AddProjectUseCase;
+import com.codurance.training.tasks.usecase.addtask.AddTaskUseCase;
+import com.codurance.training.tasks.usecase.error.ErrorUseCase;
+import com.codurance.training.tasks.usecase.help.HelpUseCase;
+import com.codurance.training.tasks.usecase.oldclass.*;
+import com.codurance.training.tasks.usecase.oldclass.Error;
+import com.codurance.training.tasks.usecase.service.*;
+import com.codurance.training.tasks.usecase.setdone.SetDoneUseCase;
+import com.codurance.training.tasks.usecase.show.ShowUseCase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,21 +21,41 @@ import java.util.UUID;
 
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
-    private final CheckList checkList = new CheckList(UUID.randomUUID().toString());
+    public static final String CHECK_LIST_ID = UUID.randomUUID().toString();
+    private final CheckList checkList = new CheckList(CHECK_LIST_ID);
     private final BufferedReader in;
     private final PrintWriter out;
+    private final ShowUseCase showUseCase;
+    private final AddProjectUseCase addProjectUseCase;
+    private final AddTaskUseCase addTaskUseCase;
+    private final SetDoneUseCase setDoneUseCase;
+    private final ErrorUseCase errorUseCase;
+    private final HelpUseCase helpUseCase;
 
-    private long lastId = 0;
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out);
-        new TaskList(in, out).run();
+        CheckListRepository checkListRepository = new InMemoryCheckListRepository();
+        ShowUseCase showUseCase = new ShowService(checkListRepository);
+        AddProjectUseCase addProjectUseCase = new AddProjectService(checkListRepository);
+        AddTaskUseCase addTaskUseCase = new AddTaskService(checkListRepository);
+        SetDoneUseCase setDoneUseCase = new SetDoneService(checkListRepository);
+        ErrorUseCase errorUseCase = new ErrorService();
+        HelpUseCase helpUseCase = new HelpService();
+        if (checkListRepository.findById())
+        new TaskList(in, out, showUseCase, addProjectUseCase, addTaskUseCase, setDoneUseCase, errorUseCase, helpUseCase).run();
     }
 
-    public TaskList(BufferedReader reader, PrintWriter writer) {
+    public TaskList(BufferedReader reader, PrintWriter writer, ShowUseCase showUseCase, AddProjectUseCase addProjectUseCase, AddTaskUseCase addTaskUseCase, SetDoneUseCase setDoneUseCase, ErrorUseCase errorUseCase, HelpUseCase helpUseCase) {
         this.in = reader;
         this.out = writer;
+        this.showUseCase = showUseCase;
+        this.addProjectUseCase = addProjectUseCase;
+        this.addTaskUseCase = addTaskUseCase;
+        this.setDoneUseCase = setDoneUseCase;
+        this.errorUseCase = errorUseCase;
+        this.helpUseCase = helpUseCase;
     }
 
     public void run() {

@@ -15,15 +15,15 @@ public class AddTaskInput implements Input {
         this.projectName = projectName;
     }
 
-    public String getCheckListId() {
+    public String checkListId() {
         return checkListId;
     }
 
-    public String getProjectName() {
+    public String projectName() {
         return projectName;
     }
 
-    public String getTaskDescription() {
+    public String taskDescription() {
         return taskDescription;
     }
 

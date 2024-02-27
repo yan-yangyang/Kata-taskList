@@ -1,4 +1,4 @@
-package com.codurance.training.tasks.usecase;
+package com.codurance.training.tasks.usecase.oldclass;
 
 import com.codurance.training.tasks.entity.*;
 

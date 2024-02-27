@@ -23,6 +23,9 @@ public class AddProjectService implements AddProjectUseCase {
                 return CqrsOutput.create().setExitCode(ExitCode.FAILURE);
             }
             checkList.addProject(Project.of(ProjectName.of(input.projectName())));
+
+            repository.save(checkList);
+
             return CqrsOutput.create().setExitCode(ExitCode.SUCCESS);
         } catch (Exception e) {
             throw new UseCaseFailureException(e);

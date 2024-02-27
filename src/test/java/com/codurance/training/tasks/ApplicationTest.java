@@ -6,6 +6,16 @@ import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintWriter;
+
+import com.codurance.training.tasks.adapter.InMemoryCheckListRepository;
+import com.codurance.training.tasks.usecase.CheckListRepository;
+import com.codurance.training.tasks.usecase.addproject.AddProjectUseCase;
+import com.codurance.training.tasks.usecase.addtask.AddTaskUseCase;
+import com.codurance.training.tasks.usecase.error.ErrorUseCase;
+import com.codurance.training.tasks.usecase.help.HelpUseCase;
+import com.codurance.training.tasks.usecase.service.*;
+import com.codurance.training.tasks.usecase.setdone.SetDoneUseCase;
+import com.codurance.training.tasks.usecase.show.ShowUseCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +37,14 @@ public final class ApplicationTest {
     public ApplicationTest() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(new PipedInputStream(inStream)));
         PrintWriter out = new PrintWriter(new PipedOutputStream(outStream), true);
-        TaskList taskList = new TaskList(in, out);
+        CheckListRepository checkListRepository = new InMemoryCheckListRepository();
+        ShowUseCase showUseCase = new ShowService(checkListRepository);
+        AddProjectUseCase addProjectUseCase = new AddProjectService(checkListRepository);
+        AddTaskUseCase addTaskUseCase = new AddTaskService(checkListRepository);
+        SetDoneUseCase setDoneUseCase = new SetDoneService(checkListRepository);
+        ErrorUseCase errorUseCase = new ErrorService();
+        HelpUseCase helpUseCase = new HelpService();
+        TaskList taskList = new TaskList(in, out, showUseCase, addProjectUseCase, addTaskUseCase, setDoneUseCase, errorUseCase, helpUseCase);
         applicationThread = new Thread(taskList);
     }
 
