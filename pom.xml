@@ -20,6 +20,17 @@
             <version>2.0.0.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>tw.teddysoft.ezddd</groupId>
+            <artifactId>ezddd-core</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>tw.teddysoft.ezddd</groupId>
+            <artifactId>ezcqrs</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -16,9 +16,9 @@ public class Show {
     }
 
     public void show() {
-        for (Project project : checkList.projects) {
-            out.println(project.name);
-            for (Task task : project.tasks) {
+        for (Project project : checkList.getProjects()) {
+            out.println(project.getName());
+            for (Task task : project.getTasks()) {
                 out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId().value(), task.getDescription());
             }
             out.println();

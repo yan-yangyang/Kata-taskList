@@ -1,4 +1,4 @@
-package com.codurance.training.tasks.usecase;
+package com.codurance.training.tasks.usecase.service;
 
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.Project;
@@ -6,25 +6,22 @@ import com.codurance.training.tasks.entity.Task;
 
 import java.io.PrintWriter;
 
-public class Check {
+public class ShowService {
     private final CheckList checkList;
     private final PrintWriter out;
 
-    public Check(CheckList checkList, PrintWriter out) {
+    public ShowService(CheckList checkList, PrintWriter out) {
         this.checkList = checkList;
         this.out = out;
     }
-    public void setDone(String idString, boolean done) {
-        int id = Integer.parseInt(idString);
+
+    public void show() {
         for (Project project : checkList.getProjects()) {
+            out.println(project.getName());
             for (Task task : project.getTasks()) {
-                if (task.getId().value() == id) {
-                    task.setDone(done);
-                    return;
-                }
+                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId().value(), task.getDescription());
             }
+            out.println();
         }
-        out.printf("Could not find a task with an ID of %d.", id);
-        out.println();
     }
 }

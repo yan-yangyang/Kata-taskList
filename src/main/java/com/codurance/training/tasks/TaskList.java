@@ -8,10 +8,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.UUID;
 
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
-    private final CheckList checkList = new CheckList();
+    private final CheckList checkList = new CheckList(UUID.randomUUID().toString());
     private final BufferedReader in;
     private final PrintWriter out;
 

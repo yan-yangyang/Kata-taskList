@@ -28,7 +28,7 @@ public class Add {
     }
 
     private void addProject(String name) {
-        checkList.add(Project.of(ProjectName.of(name)));
+        checkList.addProject(Project.of(ProjectName.of(name)));
     }
 
     private void addTask(String projectName, String description) {
@@ -38,7 +38,7 @@ public class Add {
             out.println();
             return;
         }
-        List<Task> projectTasks = project.get().tasks;
+        List<Task> projectTasks = project.get().getTasks();
         projectTasks.add(new Task(TaskId.of(nextId()), description, false));
     }
 
