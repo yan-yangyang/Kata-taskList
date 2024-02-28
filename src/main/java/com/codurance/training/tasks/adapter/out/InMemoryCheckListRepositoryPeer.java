@@ -1,12 +1,11 @@
 package com.codurance.training.tasks.adapter.out;
 
-import com.codurance.training.tasks.entity.CheckList;
-import com.codurance.training.tasks.entity.CheckListId;
 import com.codurance.training.tasks.usecase.port.CheckListDto;
-import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
 import com.codurance.training.tasks.usecase.port.out.CheckListRepositoryPeer;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class InMemoryCheckListRepositoryPeer implements CheckListRepositoryPeer {
     private final Map<String, CheckListDto> store;

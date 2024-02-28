@@ -4,7 +4,6 @@ import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.Project;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CheckListMapper {
     public static CheckList toDomain(CheckListDto checkListDto) {

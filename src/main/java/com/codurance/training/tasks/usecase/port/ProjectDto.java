@@ -1,9 +1,5 @@
 package com.codurance.training.tasks.usecase.port;
 
-import com.codurance.training.tasks.entity.ProjectName;
-import com.codurance.training.tasks.entity.Task;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDto {

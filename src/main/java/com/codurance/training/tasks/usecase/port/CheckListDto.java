@@ -1,14 +1,9 @@
 package com.codurance.training.tasks.usecase.port;
 
-import com.codurance.training.tasks.entity.*;
-import tw.teddysoft.ezddd.core.entity.AggregateRoot;
-import tw.teddysoft.ezddd.core.entity.DomainEvent;
 import tw.teddysoft.ezddd.core.usecase.StoreData;
 import tw.teddysoft.ezddd.core.usecase.domainevent.DomainEventData;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CheckListDto implements StoreData {
 

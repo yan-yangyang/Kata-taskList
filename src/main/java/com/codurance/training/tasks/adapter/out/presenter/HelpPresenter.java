@@ -1,8 +1,5 @@
 package com.codurance.training.tasks.adapter.out.presenter;
 
-import com.codurance.training.tasks.usecase.port.ProjectDto;
-import com.codurance.training.tasks.usecase.port.TaskDto;
-
 import java.io.PrintWriter;
 import java.util.List;
 

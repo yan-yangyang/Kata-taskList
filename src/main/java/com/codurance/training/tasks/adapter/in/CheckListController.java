@@ -2,10 +2,6 @@ package com.codurance.training.tasks.adapter.in;
 
 import com.codurance.training.tasks.adapter.out.presenter.HelpPresenter;
 import com.codurance.training.tasks.adapter.out.presenter.ShowPresenter;
-import com.codurance.training.tasks.entity.Project;
-import com.codurance.training.tasks.entity.Task;
-import com.codurance.training.tasks.usecase.port.ProjectDto;
-import com.codurance.training.tasks.usecase.port.TaskDto;
 import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectInput;
 import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectUseCase;
 import com.codurance.training.tasks.usecase.port.in.addtask.AddTaskInput;
