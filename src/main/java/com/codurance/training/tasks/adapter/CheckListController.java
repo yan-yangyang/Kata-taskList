@@ -1,8 +1,7 @@
-package com.codurance.training.tasks;
+package com.codurance.training.tasks.adapter;
 
-import com.codurance.training.tasks.adapter.InMemoryCheckListRepository;
-import com.codurance.training.tasks.entity.*;
-import com.codurance.training.tasks.usecase.CheckListRepository;
+import com.codurance.training.tasks.entity.Project;
+import com.codurance.training.tasks.entity.Task;
 import com.codurance.training.tasks.usecase.addproject.AddProjectInput;
 import com.codurance.training.tasks.usecase.addproject.AddProjectUseCase;
 import com.codurance.training.tasks.usecase.addtask.AddTaskInput;
@@ -11,24 +10,17 @@ import com.codurance.training.tasks.usecase.error.ErrorInput;
 import com.codurance.training.tasks.usecase.error.ErrorUseCase;
 import com.codurance.training.tasks.usecase.help.HelpInput;
 import com.codurance.training.tasks.usecase.help.HelpUseCase;
-import com.codurance.training.tasks.usecase.service.*;
 import com.codurance.training.tasks.usecase.setdone.SetDoneInput;
 import com.codurance.training.tasks.usecase.setdone.SetDoneUseCase;
 import com.codurance.training.tasks.usecase.show.ShowInput;
 import com.codurance.training.tasks.usecase.show.ShowUseCase;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.UUID;
 
-public final class TaskList implements Runnable {
-    private static final String QUIT = "quit";
-    public static final String CHECK_LIST_ID = UUID.randomUUID().toString();
-    private final CheckList checkList = new CheckList(CHECK_LIST_ID);
-    private final BufferedReader in;
+import static com.codurance.training.tasks.frame.CheckListApp.CHECK_LIST_ID;
+
+public class CheckListController {
     private final PrintWriter out;
     private final ShowUseCase showUseCase;
     private final AddProjectUseCase addProjectUseCase;
@@ -37,26 +29,14 @@ public final class TaskList implements Runnable {
     private final ErrorUseCase errorUseCase;
     private final HelpUseCase helpUseCase;
 
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out = new PrintWriter(System.out);
-        CheckListRepository checkListRepository = new InMemoryCheckListRepository();
-        ShowUseCase showUseCase = new ShowService(checkListRepository);
-        AddProjectUseCase addProjectUseCase = new AddProjectService(checkListRepository);
-        AddTaskUseCase addTaskUseCase = new AddTaskService(checkListRepository);
-        SetDoneUseCase setDoneUseCase = new SetDoneService(checkListRepository);
-        ErrorUseCase errorUseCase = new ErrorService();
-        HelpUseCase helpUseCase = new HelpService();
-        if (checkListRepository.findById(CheckListId.of(CHECK_LIST_ID)).isEmpty()) {
-            checkListRepository.save(new CheckList(CHECK_LIST_ID));
-        }
-        new TaskList(in, out, showUseCase, addProjectUseCase, addTaskUseCase, setDoneUseCase, errorUseCase, helpUseCase).run();
-    }
-
-    public TaskList(BufferedReader reader, PrintWriter writer, ShowUseCase showUseCase, AddProjectUseCase addProjectUseCase, AddTaskUseCase addTaskUseCase, SetDoneUseCase setDoneUseCase, ErrorUseCase errorUseCase, HelpUseCase helpUseCase) {
-        this.in = reader;
-        this.out = writer;
+    public CheckListController(PrintWriter out,
+                               ShowUseCase showUseCase,
+                               AddProjectUseCase addProjectUseCase,
+                               AddTaskUseCase addTaskUseCase,
+                               SetDoneUseCase setDoneUseCase,
+                               ErrorUseCase errorUseCase,
+                               HelpUseCase helpUseCase) {
+        this.out = out;
         this.showUseCase = showUseCase;
         this.addProjectUseCase = addProjectUseCase;
         this.addTaskUseCase = addTaskUseCase;
@@ -65,24 +45,7 @@ public final class TaskList implements Runnable {
         this.helpUseCase = helpUseCase;
     }
 
-    public void run() {
-        while (true) {
-            out.print("> ");
-            out.flush();
-            String command;
-            try {
-                command = in.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            if (command.equals(QUIT)) {
-                break;
-            }
-            execute(command);
-        }
-    }
-
-    private void execute(String commandLine) {
+    public void execute(String commandLine) {
         String[] commandRest = commandLine.split(" ", 2);
         String command = commandRest[0];
         switch (command) {

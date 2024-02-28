@@ -51,7 +51,7 @@
                     <programs>
                         <program>
                             <id>task-list</id>
-                            <mainClass>com.codurance.training.tasks.TaskList</mainClass>
+                            <mainClass>com.codurance.training.tasks.frame.CheckListApp</mainClass>
                         </program>
                     </programs>
                 </configuration>

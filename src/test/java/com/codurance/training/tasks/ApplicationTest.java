@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import com.codurance.training.tasks.adapter.InMemoryCheckListRepository;
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.CheckListId;
+import com.codurance.training.tasks.frame.CheckListApp;
 import com.codurance.training.tasks.usecase.CheckListRepository;
 import com.codurance.training.tasks.usecase.addproject.AddProjectUseCase;
 import com.codurance.training.tasks.usecase.addtask.AddTaskUseCase;
@@ -22,7 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.codurance.training.tasks.TaskList.CHECK_LIST_ID;
+import static com.codurance.training.tasks.frame.CheckListApp.CHECK_LIST_ID;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -50,8 +51,8 @@ public final class ApplicationTest {
         if (checkListRepository.findById(CheckListId.of(CHECK_LIST_ID)).isEmpty()) {
             checkListRepository.save(new CheckList(CHECK_LIST_ID));
         }
-        TaskList taskList = new TaskList(in, out, showUseCase, addProjectUseCase, addTaskUseCase, setDoneUseCase, errorUseCase, helpUseCase);
-        applicationThread = new Thread(taskList);
+        CheckListApp checkListApp = new CheckListApp(in, out, showUseCase, addProjectUseCase, addTaskUseCase, setDoneUseCase, errorUseCase, helpUseCase);
+        applicationThread = new Thread(checkListApp);
     }
 
     @Before public void
