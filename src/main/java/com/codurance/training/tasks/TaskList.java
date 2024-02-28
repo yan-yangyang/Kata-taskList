@@ -7,10 +7,10 @@ import com.codurance.training.tasks.usecase.addproject.AddProjectInput;
 import com.codurance.training.tasks.usecase.addproject.AddProjectUseCase;
 import com.codurance.training.tasks.usecase.addtask.AddTaskInput;
 import com.codurance.training.tasks.usecase.addtask.AddTaskUseCase;
+import com.codurance.training.tasks.usecase.error.ErrorInput;
 import com.codurance.training.tasks.usecase.error.ErrorUseCase;
+import com.codurance.training.tasks.usecase.help.HelpInput;
 import com.codurance.training.tasks.usecase.help.HelpUseCase;
-import com.codurance.training.tasks.usecase.oldclass.*;
-import com.codurance.training.tasks.usecase.oldclass.Error;
 import com.codurance.training.tasks.usecase.service.*;
 import com.codurance.training.tasks.usecase.setdone.SetDoneInput;
 import com.codurance.training.tasks.usecase.setdone.SetDoneUseCase;
@@ -99,15 +99,12 @@ public final class TaskList implements Runnable {
                     out.println();
                 }
 
-//                new Show(checkList, out).show();
                 break;
             case "add":
-//                new Add(checkList, out).add(commandRest[1]);
 
                 String[] subcommandRest = commandRest[1].split(" ", 2);
                 String subcommand = subcommandRest[0];
                 if (subcommand.equals("project")) {
-//                    addProject(subcommandRest[1]);
                     AddProjectInput addProjectInput = new AddProjectInput();
                     addProjectInput.setCheckListId(CHECK_LIST_ID);
                     addProjectInput.setProjectName(subcommandRest[1]);
@@ -121,11 +118,9 @@ public final class TaskList implements Runnable {
                     addTaskInput.setProjectName(projectTask[0]);
                     addTaskInput.setTaskDescription(projectTask[1]);
                     addTaskUseCase.execute(addTaskInput);
-//                    addTask(projectTask[0], projectTask[1]);
                 }
                 break;
             case "check":
-//                new Check(checkList, out).setDone(commandRest[1], true);
                 SetDoneInput setTrueInput = new SetDoneInput();
                 setTrueInput.setCheckListId(CHECK_LIST_ID);
                 setTrueInput.setTaskId(commandRest[1]);
@@ -133,8 +128,6 @@ public final class TaskList implements Runnable {
                 setDoneUseCase.execute(setTrueInput);
                 break;
             case "uncheck":
-//                new Check(checkList, out).setDone(commandRest[1], false);
-
                 SetDoneInput setFalseInput = new SetDoneInput();
                 setFalseInput.setCheckListId(CHECK_LIST_ID);
                 setFalseInput.setTaskId(commandRest[1]);
@@ -142,10 +135,19 @@ public final class TaskList implements Runnable {
                 setDoneUseCase.execute(setFalseInput);
                 break;
             case "help":
-                new Help(out).help();
+                HelpInput helpInput = new HelpInput();
+                var helpOutput = helpUseCase.execute(helpInput);
+                List<String> helpResponse = helpOutput.getResponse();
+                out.println(helpResponse.get(0));
+                for (int i = 1 ; i < helpResponse.size() ; i++) {
+                    out.println("  " + helpResponse.get(i));
+                }
                 break;
             default:
-                new Error(out).error(command);
+                ErrorInput errorInput = new ErrorInput();
+                errorInput.setCommand(command);
+                var errorOutput = errorUseCase.execute(errorInput);
+                out.println(errorOutput.getMessage());
                 break;
         }
     }
