@@ -48,13 +48,20 @@ public class CheckList extends AggregateRoot<CheckListId, DomainEvent> {
     }
 
     public boolean containTask(String taskId) {
-        return projects.stream().anyMatch(project -> project.getTasks().stream().anyMatch(task -> task.getId().toString().equals(taskId)));
+        for (Project project: projects) {
+            for (Task task: project.getTasks()) {
+                if (task.getId().value() == Integer.parseInt(taskId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void setDone(String taskId, boolean done) {
         for (Project project: projects) {
             for (Task task: project.getTasks()) {
-                if (task.getId().toString().equals(taskId)) {
+                if (task.getId().value() == Integer.parseInt(taskId)) {
                     task.setDone(done);
                 }
             }

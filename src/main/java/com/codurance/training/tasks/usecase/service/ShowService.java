@@ -8,6 +8,8 @@ import com.codurance.training.tasks.usecase.show.ShowInput;
 import com.codurance.training.tasks.usecase.show.ShowOutPut;
 import tw.teddysoft.ezddd.core.usecase.ExitCode;
 
+import java.util.ArrayList;
+
 public class ShowService implements ShowUseCase {
     private final CheckListRepository repository;
 
