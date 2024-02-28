@@ -1,13 +1,15 @@
 package com.codurance.training.tasks.frame;
 
 import com.codurance.training.tasks.adapter.in.CheckListController;
-import com.codurance.training.tasks.adapter.out.InMemoryCheckListRepository;
+import com.codurance.training.tasks.adapter.out.repository.InMemoryCheckListRepository;
+import com.codurance.training.tasks.adapter.out.InMemoryCheckListRepositoryPeer;
 import com.codurance.training.tasks.entity.*;
 import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
 import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectUseCase;
 import com.codurance.training.tasks.usecase.port.in.addtask.AddTaskUseCase;
 import com.codurance.training.tasks.usecase.port.in.error.ErrorUseCase;
 import com.codurance.training.tasks.usecase.port.in.help.HelpUseCase;
+import com.codurance.training.tasks.usecase.port.out.CheckListRepositoryPeer;
 import com.codurance.training.tasks.usecase.service.*;
 import com.codurance.training.tasks.usecase.port.in.setdone.SetDoneUseCase;
 import com.codurance.training.tasks.usecase.port.in.show.ShowUseCase;
@@ -34,7 +36,8 @@ public final class CheckListApp implements Runnable {
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out);
-        CheckListRepository checkListRepository = new InMemoryCheckListRepository();
+        CheckListRepositoryPeer checkListRepositoryPeer = new InMemoryCheckListRepositoryPeer();
+        CheckListRepository checkListRepository = new InMemoryCheckListRepository(checkListRepositoryPeer);
         ShowUseCase showUseCase = new ShowService(checkListRepository);
         AddProjectUseCase addProjectUseCase = new AddProjectService(checkListRepository);
         AddTaskUseCase addTaskUseCase = new AddTaskService(checkListRepository);

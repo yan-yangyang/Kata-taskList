@@ -7,7 +7,8 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintWriter;
 
-import com.codurance.training.tasks.adapter.out.InMemoryCheckListRepository;
+import com.codurance.training.tasks.adapter.out.repository.InMemoryCheckListRepository;
+import com.codurance.training.tasks.adapter.out.InMemoryCheckListRepositoryPeer;
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.CheckListId;
 import com.codurance.training.tasks.frame.CheckListApp;
@@ -16,6 +17,7 @@ import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectUseCase
 import com.codurance.training.tasks.usecase.port.in.addtask.AddTaskUseCase;
 import com.codurance.training.tasks.usecase.port.in.error.ErrorUseCase;
 import com.codurance.training.tasks.usecase.port.in.help.HelpUseCase;
+import com.codurance.training.tasks.usecase.port.out.CheckListRepositoryPeer;
 import com.codurance.training.tasks.usecase.service.*;
 import com.codurance.training.tasks.usecase.port.in.setdone.SetDoneUseCase;
 import com.codurance.training.tasks.usecase.port.in.show.ShowUseCase;
@@ -41,7 +43,8 @@ public final class ApplicationTest {
     public ApplicationTest() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(new PipedInputStream(inStream)));
         PrintWriter out = new PrintWriter(new PipedOutputStream(outStream), true);
-        CheckListRepository checkListRepository = new InMemoryCheckListRepository();
+        CheckListRepositoryPeer checkListRepositoryPeer = new InMemoryCheckListRepositoryPeer();
+        CheckListRepository checkListRepository = new InMemoryCheckListRepository(checkListRepositoryPeer);
         ShowUseCase showUseCase = new ShowService(checkListRepository);
         AddProjectUseCase addProjectUseCase = new AddProjectService(checkListRepository);
         AddTaskUseCase addTaskUseCase = new AddTaskService(checkListRepository);
