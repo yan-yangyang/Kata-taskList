@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Project {
 
-    public final ProjectName name;
-    public final List<Task> tasks;
+    private final ProjectName name;
+    private final List<Task> tasks;
 
     public Project(ProjectName name) {
         this.name = name;
@@ -15,5 +15,13 @@ public class Project {
 
     public static Project of(ProjectName name) {
         return new Project(name);
+    }
+
+    public ProjectName getName() {
+        return name;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 }
