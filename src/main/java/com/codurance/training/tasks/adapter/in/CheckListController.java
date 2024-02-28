@@ -1,7 +1,11 @@
 package com.codurance.training.tasks.adapter.in;
 
+import com.codurance.training.tasks.adapter.out.presenter.HelpPresenter;
+import com.codurance.training.tasks.adapter.out.presenter.ShowPresenter;
 import com.codurance.training.tasks.entity.Project;
 import com.codurance.training.tasks.entity.Task;
+import com.codurance.training.tasks.usecase.port.ProjectDto;
+import com.codurance.training.tasks.usecase.port.TaskDto;
 import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectInput;
 import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectUseCase;
 import com.codurance.training.tasks.usecase.port.in.addtask.AddTaskInput;
@@ -75,13 +79,7 @@ public class CheckListController {
         showInput.setCheckListId(CHECK_LIST_ID);
         var showOutput = showUseCase.execute(showInput);
 
-        for (Project project : showOutput.getProjects()) {
-            out.println(project.getName());
-            for (Task task : project.getTasks()) {
-                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId().value(), task.getDescription());
-            }
-            out.println();
-        }
+        new ShowPresenter().present(out, showOutput.getProjects());
     }
     private void whenAdd(String[] commandRest) {
         String[] subcommandRest = commandRest[1].split(" ", 2);
@@ -120,11 +118,9 @@ public class CheckListController {
     private void WhenHelp() {
         HelpInput helpInput = new HelpInput();
         var helpOutput = helpUseCase.execute(helpInput);
-        List<String> helpResponse = helpOutput.getResponse();
-        out.println(helpResponse.get(0));
-        for (int i = 1 ; i < helpResponse.size() ; i++) {
-            out.println("  " + helpResponse.get(i));
-        }
+
+        new HelpPresenter().present(out, helpOutput.getResponse());
+
     }
     private void WhenError(String command) {
         ErrorInput errorInput = new ErrorInput();
