@@ -50,68 +50,86 @@ public class CheckListController {
         String command = commandRest[0];
         switch (command) {
             case "show":
-                ShowInput showInput = new ShowInput();
-                showInput.setCheckListId(CHECK_LIST_ID);
-                var showOutput = showUseCase.execute(showInput);
-
-                for (Project project : showOutput.getProjects()) {
-                    out.println(project.getName());
-                    for (Task task : project.getTasks()) {
-                        out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId().value(), task.getDescription());
-                    }
-                    out.println();
-                }
-
+                whenShow();
                 break;
             case "add":
-
-                String[] subcommandRest = commandRest[1].split(" ", 2);
-                String subcommand = subcommandRest[0];
-                if (subcommand.equals("project")) {
-                    AddProjectInput addProjectInput = new AddProjectInput();
-                    addProjectInput.setCheckListId(CHECK_LIST_ID);
-                    addProjectInput.setProjectName(subcommandRest[1]);
-                    addProjectUseCase.execute(addProjectInput);
-
-                } else if (subcommand.equals("task")) {
-                    String[] projectTask = subcommandRest[1].split(" ", 2);
-
-                    AddTaskInput addTaskInput = new AddTaskInput();
-                    addTaskInput.setCheckListId(CHECK_LIST_ID);
-                    addTaskInput.setProjectName(projectTask[0]);
-                    addTaskInput.setTaskDescription(projectTask[1]);
-                    addTaskUseCase.execute(addTaskInput);
-                }
+                whenAdd(commandRest);
                 break;
             case "check":
-                SetDoneInput setTrueInput = new SetDoneInput();
-                setTrueInput.setCheckListId(CHECK_LIST_ID);
-                setTrueInput.setTaskId(commandRest[1]);
-                setTrueInput.setDone(true);
-                setDoneUseCase.execute(setTrueInput);
+                whenSetDone(commandRest, true);
                 break;
             case "uncheck":
-                SetDoneInput setFalseInput = new SetDoneInput();
-                setFalseInput.setCheckListId(CHECK_LIST_ID);
-                setFalseInput.setTaskId(commandRest[1]);
-                setFalseInput.setDone(false);
-                setDoneUseCase.execute(setFalseInput);
+                whenSetDone(commandRest, false);
                 break;
             case "help":
-                HelpInput helpInput = new HelpInput();
-                var helpOutput = helpUseCase.execute(helpInput);
-                List<String> helpResponse = helpOutput.getResponse();
-                out.println(helpResponse.get(0));
-                for (int i = 1 ; i < helpResponse.size() ; i++) {
-                    out.println("  " + helpResponse.get(i));
-                }
+                WhenHelp();
                 break;
             default:
-                ErrorInput errorInput = new ErrorInput();
-                errorInput.setCommand(command);
-                var errorOutput = errorUseCase.execute(errorInput);
-                out.println(errorOutput.getMessage());
+                WhenError(command);
                 break;
         }
+    }
+
+    private void whenShow() {
+        ShowInput showInput = new ShowInput();
+        showInput.setCheckListId(CHECK_LIST_ID);
+        var showOutput = showUseCase.execute(showInput);
+
+        for (Project project : showOutput.getProjects()) {
+            out.println(project.getName());
+            for (Task task : project.getTasks()) {
+                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId().value(), task.getDescription());
+            }
+            out.println();
+        }
+    }
+    private void whenAdd(String[] commandRest) {
+        String[] subcommandRest = commandRest[1].split(" ", 2);
+        String subcommand = subcommandRest[0];
+        if (subcommand.equals("project")) {
+            whenAddProject(subcommandRest);
+
+        } else if (subcommand.equals("task")) {
+            whenAddTask(subcommandRest);
+        }
+    }
+    private void whenAddProject(String[] subcommandRest) {
+        AddProjectInput addProjectInput = new AddProjectInput();
+        addProjectInput.setCheckListId(CHECK_LIST_ID);
+        addProjectInput.setProjectName(subcommandRest[1]);
+        addProjectUseCase.execute(addProjectInput);
+    }
+    private void whenAddTask(String[] subcommandRest) {
+        String[] projectTask = subcommandRest[1].split(" ", 2);
+
+        AddTaskInput addTaskInput = new AddTaskInput();
+        addTaskInput.setCheckListId(CHECK_LIST_ID);
+        addTaskInput.setProjectName(projectTask[0]);
+        addTaskInput.setTaskDescription(projectTask[1]);
+        addTaskUseCase.execute(addTaskInput);
+    }
+
+
+    private void whenSetDone(String[] commandRest, boolean done) {
+        SetDoneInput setTrueInput = new SetDoneInput();
+        setTrueInput.setCheckListId(CHECK_LIST_ID);
+        setTrueInput.setTaskId(commandRest[1]);
+        setTrueInput.setDone(done);
+        setDoneUseCase.execute(setTrueInput);
+    }
+    private void WhenHelp() {
+        HelpInput helpInput = new HelpInput();
+        var helpOutput = helpUseCase.execute(helpInput);
+        List<String> helpResponse = helpOutput.getResponse();
+        out.println(helpResponse.get(0));
+        for (int i = 1 ; i < helpResponse.size() ; i++) {
+            out.println("  " + helpResponse.get(i));
+        }
+    }
+    private void WhenError(String command) {
+        ErrorInput errorInput = new ErrorInput();
+        errorInput.setCommand(command);
+        var errorOutput = errorUseCase.execute(errorInput);
+        out.println(errorOutput.getMessage());
     }
 }
