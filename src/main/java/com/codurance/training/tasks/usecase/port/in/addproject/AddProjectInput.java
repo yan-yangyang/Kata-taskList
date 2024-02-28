@@ -1,11 +1,10 @@
-package com.codurance.training.tasks.usecase.addtask;
+package com.codurance.training.tasks.usecase.port.in.addproject;
 
 import tw.teddysoft.ezddd.core.usecase.Input;
 
-public class AddTaskInput implements Input {
+public class AddProjectInput implements Input {
     private String checkListId;
     private String projectName;
-    private String taskDescription;
 
     public void setCheckListId(String checkListId) {
         this.checkListId = checkListId;
@@ -21,13 +20,5 @@ public class AddTaskInput implements Input {
 
     public String projectName() {
         return projectName;
-    }
-
-    public String taskDescription() {
-        return taskDescription;
-    }
-
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
     }
 }

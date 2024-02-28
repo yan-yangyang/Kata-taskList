@@ -1,16 +1,16 @@
 package com.codurance.training.tasks.frame;
 
-import com.codurance.training.tasks.adapter.CheckListController;
-import com.codurance.training.tasks.adapter.InMemoryCheckListRepository;
+import com.codurance.training.tasks.adapter.in.CheckListController;
+import com.codurance.training.tasks.adapter.out.InMemoryCheckListRepository;
 import com.codurance.training.tasks.entity.*;
-import com.codurance.training.tasks.usecase.CheckListRepository;
-import com.codurance.training.tasks.usecase.addproject.AddProjectUseCase;
-import com.codurance.training.tasks.usecase.addtask.AddTaskUseCase;
-import com.codurance.training.tasks.usecase.error.ErrorUseCase;
-import com.codurance.training.tasks.usecase.help.HelpUseCase;
+import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
+import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectUseCase;
+import com.codurance.training.tasks.usecase.port.in.addtask.AddTaskUseCase;
+import com.codurance.training.tasks.usecase.port.in.error.ErrorUseCase;
+import com.codurance.training.tasks.usecase.port.in.help.HelpUseCase;
 import com.codurance.training.tasks.usecase.service.*;
-import com.codurance.training.tasks.usecase.setdone.SetDoneUseCase;
-import com.codurance.training.tasks.usecase.show.ShowUseCase;
+import com.codurance.training.tasks.usecase.port.in.setdone.SetDoneUseCase;
+import com.codurance.training.tasks.usecase.port.in.show.ShowUseCase;
 
 import java.io.BufferedReader;
 import java.io.IOException;

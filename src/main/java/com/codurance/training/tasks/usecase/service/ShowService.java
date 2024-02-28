@@ -2,13 +2,11 @@ package com.codurance.training.tasks.usecase.service;
 
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.CheckListId;
-import com.codurance.training.tasks.usecase.CheckListRepository;
-import com.codurance.training.tasks.usecase.show.ShowUseCase;
-import com.codurance.training.tasks.usecase.show.ShowInput;
-import com.codurance.training.tasks.usecase.show.ShowOutPut;
+import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
+import com.codurance.training.tasks.usecase.port.in.show.ShowUseCase;
+import com.codurance.training.tasks.usecase.port.in.show.ShowInput;
+import com.codurance.training.tasks.usecase.port.in.show.ShowOutPut;
 import tw.teddysoft.ezddd.core.usecase.ExitCode;
-
-import java.util.ArrayList;
 
 public class ShowService implements ShowUseCase {
     private final CheckListRepository repository;

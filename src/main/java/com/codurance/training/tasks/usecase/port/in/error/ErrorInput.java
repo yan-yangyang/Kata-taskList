@@ -1,4 +1,4 @@
-package com.codurance.training.tasks.usecase.error;
+package com.codurance.training.tasks.usecase.port.in.error;
 
 import tw.teddysoft.ezddd.core.usecase.Input;
 

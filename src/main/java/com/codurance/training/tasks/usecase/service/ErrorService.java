@@ -1,7 +1,7 @@
 package com.codurance.training.tasks.usecase.service;
 
-import com.codurance.training.tasks.usecase.error.ErrorInput;
-import com.codurance.training.tasks.usecase.error.ErrorUseCase;
+import com.codurance.training.tasks.usecase.port.in.error.ErrorInput;
+import com.codurance.training.tasks.usecase.port.in.error.ErrorUseCase;
 import tw.teddysoft.ezddd.core.usecase.ExitCode;
 import tw.teddysoft.ezddd.cqrs.usecase.CqrsOutput;
 

@@ -1,11 +1,10 @@
 package com.codurance.training.tasks.usecase.service;
 
-import com.codurance.training.tasks.usecase.help.HelpInput;
-import com.codurance.training.tasks.usecase.help.HelpOutPut;
-import com.codurance.training.tasks.usecase.help.HelpUseCase;
+import com.codurance.training.tasks.usecase.port.in.help.HelpInput;
+import com.codurance.training.tasks.usecase.port.in.help.HelpOutPut;
+import com.codurance.training.tasks.usecase.port.in.help.HelpUseCase;
 import tw.teddysoft.ezddd.core.usecase.ExitCode;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 

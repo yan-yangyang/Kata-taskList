@@ -1,8 +1,8 @@
-package com.codurance.training.tasks.adapter;
+package com.codurance.training.tasks.adapter.out;
 
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.CheckListId;
-import com.codurance.training.tasks.usecase.CheckListRepository;
+import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
 
 import java.util.ArrayList;
 import java.util.List;

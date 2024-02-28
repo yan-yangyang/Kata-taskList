@@ -1,4 +1,4 @@
-package com.codurance.training.tasks.usecase;
+package com.codurance.training.tasks.usecase.port.out;
 
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.CheckListId;

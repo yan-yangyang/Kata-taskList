@@ -1,9 +1,9 @@
 package com.codurance.training.tasks.usecase.service;
 
 import com.codurance.training.tasks.entity.*;
-import com.codurance.training.tasks.usecase.addproject.AddProjectInput;
-import com.codurance.training.tasks.usecase.addproject.AddProjectUseCase;
-import com.codurance.training.tasks.usecase.CheckListRepository;
+import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectInput;
+import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectUseCase;
+import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
 import tw.teddysoft.ezddd.core.usecase.ExitCode;
 import tw.teddysoft.ezddd.core.usecase.UseCaseFailureException;
 import tw.teddysoft.ezddd.cqrs.usecase.CqrsOutput;

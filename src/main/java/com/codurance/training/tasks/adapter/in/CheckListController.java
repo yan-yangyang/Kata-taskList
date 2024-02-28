@@ -1,19 +1,19 @@
-package com.codurance.training.tasks.adapter;
+package com.codurance.training.tasks.adapter.in;
 
 import com.codurance.training.tasks.entity.Project;
 import com.codurance.training.tasks.entity.Task;
-import com.codurance.training.tasks.usecase.addproject.AddProjectInput;
-import com.codurance.training.tasks.usecase.addproject.AddProjectUseCase;
-import com.codurance.training.tasks.usecase.addtask.AddTaskInput;
-import com.codurance.training.tasks.usecase.addtask.AddTaskUseCase;
-import com.codurance.training.tasks.usecase.error.ErrorInput;
-import com.codurance.training.tasks.usecase.error.ErrorUseCase;
-import com.codurance.training.tasks.usecase.help.HelpInput;
-import com.codurance.training.tasks.usecase.help.HelpUseCase;
-import com.codurance.training.tasks.usecase.setdone.SetDoneInput;
-import com.codurance.training.tasks.usecase.setdone.SetDoneUseCase;
-import com.codurance.training.tasks.usecase.show.ShowInput;
-import com.codurance.training.tasks.usecase.show.ShowUseCase;
+import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectInput;
+import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectUseCase;
+import com.codurance.training.tasks.usecase.port.in.addtask.AddTaskInput;
+import com.codurance.training.tasks.usecase.port.in.addtask.AddTaskUseCase;
+import com.codurance.training.tasks.usecase.port.in.error.ErrorInput;
+import com.codurance.training.tasks.usecase.port.in.error.ErrorUseCase;
+import com.codurance.training.tasks.usecase.port.in.help.HelpInput;
+import com.codurance.training.tasks.usecase.port.in.help.HelpUseCase;
+import com.codurance.training.tasks.usecase.port.in.setdone.SetDoneInput;
+import com.codurance.training.tasks.usecase.port.in.setdone.SetDoneUseCase;
+import com.codurance.training.tasks.usecase.port.in.show.ShowInput;
+import com.codurance.training.tasks.usecase.port.in.show.ShowUseCase;
 
 import java.io.PrintWriter;
 import java.util.List;
