@@ -1,17 +1,17 @@
-package com.codurance.training.tasks;
+package com.codurance.training.tasks.usecase.port;
 
-public final class Task {
-    private final long id;
+public final class TaskDto {
+    private final String id;
     private final String description;
-    private boolean done;
+    private final boolean done;
 
-    public Task(long id, String description, boolean done) {
+    public TaskDto(String id, String description, boolean done) {
         this.id = id;
         this.description = description;
         this.done = done;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -21,9 +21,5 @@ public final class Task {
 
     public boolean isDone() {
         return done;
-    }
-
-    public void setDone(boolean done) {
-        this.done = done;
     }
 }
