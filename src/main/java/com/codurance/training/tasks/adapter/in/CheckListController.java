@@ -19,6 +19,7 @@ import tw.teddysoft.ezddd.core.usecase.ExitCode;
 import java.io.PrintWriter;
 
 import static com.codurance.training.tasks.frame.CheckListApp.CHECK_LIST_ID;
+import static java.lang.String.format;
 
 public class CheckListController {
     private final PrintWriter out;
@@ -90,6 +91,8 @@ public class CheckListController {
 
         } else if (subcommand.equals("task")) {
             whenAddTask(subcommandRest);
+        } else {
+            throw new RuntimeException(format("added item '%s' is illegal.", subcommand));
         }
     }
     private void whenAddProject(String[] subcommandRest) {
