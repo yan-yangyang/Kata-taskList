@@ -24,4 +24,8 @@ public class Project {
     public List<Task> getTasks() {
         return tasks;
     }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
 }

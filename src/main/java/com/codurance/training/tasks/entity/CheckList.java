@@ -46,7 +46,7 @@ public class CheckList extends AggregateRoot<CheckListId, DomainEvent> {
         if (project.isEmpty()) {
             throw new RuntimeException(format("project '%s' not found", projectName));
         }
-        project.get().getTasks().add(new Task(TaskId.of(nextId()), taskDescription, false));
+        project.get().addTask(new Task(TaskId.of(nextId()), taskDescription, false));
     }
     private long nextId() {
         return ++lastId;
