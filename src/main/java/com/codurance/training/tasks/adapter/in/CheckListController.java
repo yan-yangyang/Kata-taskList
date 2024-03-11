@@ -14,9 +14,9 @@ import com.codurance.training.tasks.usecase.port.in.setdone.SetDoneInput;
 import com.codurance.training.tasks.usecase.port.in.setdone.SetDoneUseCase;
 import com.codurance.training.tasks.usecase.port.in.show.ShowInput;
 import com.codurance.training.tasks.usecase.port.in.show.ShowUseCase;
+import tw.teddysoft.ezddd.core.usecase.ExitCode;
 
 import java.io.PrintWriter;
-import java.util.List;
 
 import static com.codurance.training.tasks.frame.CheckListApp.CHECK_LIST_ID;
 
@@ -46,28 +46,33 @@ public class CheckListController {
     }
 
     public void execute(String commandLine) {
-        String[] commandRest = commandLine.split(" ", 2);
-        String command = commandRest[0];
-        switch (command) {
-            case "show":
-                whenShow();
-                break;
-            case "add":
-                whenAdd(commandRest);
-                break;
-            case "check":
-                whenSetDone(commandRest, true);
-                break;
-            case "uncheck":
-                whenSetDone(commandRest, false);
-                break;
-            case "help":
-                WhenHelp();
-                break;
-            default:
-                WhenError(command);
-                break;
+        try {
+            String[] commandRest = commandLine.split(" ", 2);
+            String command = commandRest[0];
+            switch (command) {
+                case "show":
+                    whenShow();
+                    break;
+                case "add":
+                    whenAdd(commandRest);
+                    break;
+                case "check":
+                    whenSetDone(commandRest, true);
+                    break;
+                case "uncheck":
+                    whenSetDone(commandRest, false);
+                    break;
+                case "help":
+                    WhenHelp();
+                    break;
+                default:
+                    WhenError(command);
+                    break;
+            }
+        } catch (Exception e) {
+            out.println(e.getMessage());
         }
+
     }
 
     private void whenShow() {
@@ -91,7 +96,10 @@ public class CheckListController {
         AddProjectInput addProjectInput = new AddProjectInput();
         addProjectInput.setCheckListId(CHECK_LIST_ID);
         addProjectInput.setProjectName(subcommandRest[1]);
-        addProjectUseCase.execute(addProjectInput);
+        var output = addProjectUseCase.execute(addProjectInput);
+        if (output.getExitCode().equals(ExitCode.FAILURE)) {
+            out.println(output.getMessage());
+        }
     }
     private void whenAddTask(String[] subcommandRest) {
         String[] projectTask = subcommandRest[1].split(" ", 2);
@@ -100,7 +108,10 @@ public class CheckListController {
         addTaskInput.setCheckListId(CHECK_LIST_ID);
         addTaskInput.setProjectName(projectTask[0]);
         addTaskInput.setTaskDescription(projectTask[1]);
-        addTaskUseCase.execute(addTaskInput);
+        var output = addTaskUseCase.execute(addTaskInput);
+        if (output.getExitCode().equals(ExitCode.FAILURE)) {
+            out.println(output.getMessage());
+        }
     }
 
 
@@ -109,7 +120,10 @@ public class CheckListController {
         setTrueInput.setCheckListId(CHECK_LIST_ID);
         setTrueInput.setTaskId(commandRest[1]);
         setTrueInput.setDone(done);
-        setDoneUseCase.execute(setTrueInput);
+        var output = setDoneUseCase.execute(setTrueInput);
+        if (output.getExitCode().equals(ExitCode.FAILURE)) {
+            out.println(output.getMessage());
+        }
     }
     private void WhenHelp() {
         HelpInput helpInput = new HelpInput();

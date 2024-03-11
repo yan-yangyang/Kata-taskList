@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.String.format;
+
 public class CheckList extends AggregateRoot<CheckListId, DomainEvent> {
 
     private final CheckListId id;
@@ -40,8 +42,11 @@ public class CheckList extends AggregateRoot<CheckListId, DomainEvent> {
     }
 
     public void addTask(ProjectName projectName, String taskDescription) {
-        Project project = get(projectName).get();
-        project.getTasks().add(new Task(TaskId.of(nextId()), taskDescription, false));
+        Optional<Project> project = get(projectName);
+        if (project.isEmpty()) {
+            throw new RuntimeException(format("project '%s' not found", projectName));
+        }
+        project.get().getTasks().add(new Task(TaskId.of(nextId()), taskDescription, false));
     }
     private long nextId() {
         return ++lastId;
