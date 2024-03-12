@@ -1,6 +1,9 @@
 package com.codurance.training.tasks.entity;
 
+import com.codurance.training.tasks.usecase.port.ImmutableTask;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Project {
@@ -22,10 +25,18 @@ public class Project {
     }
 
     public List<Task> getTasks() {
-        return tasks;
+        return tasks.stream().map(ImmutableTask::create).toList();
     }
 
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    public void setDone(String taskId, boolean done) {
+        for (Task task: tasks) {
+            if (task.getId().value() == Integer.parseInt(taskId)) {
+                task.setDone(done);
+            }
+        }
     }
 }

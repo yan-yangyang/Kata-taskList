@@ -1,5 +1,6 @@
 package com.codurance.training.tasks.entity;
 
+import com.codurance.training.tasks.usecase.port.ImmutableProject;
 import tw.teddysoft.ezddd.core.entity.AggregateRoot;
 import tw.teddysoft.ezddd.core.entity.DomainEvent;
 
@@ -24,17 +25,13 @@ public class CheckList extends AggregateRoot<CheckListId, DomainEvent> {
         projects.add(project);
     }
 
-    public Optional<Project> get(ProjectName name) {
-        return projects.stream().filter(x -> x.getName().equals(name)).findAny();
-    }
-
     @Override
     public CheckListId getId() {
         return id;
     }
 
     public List<Project> getProjects() {
-        return projects;
+        return projects.stream().map(ImmutableProject::create).toList();
     }
 
     public boolean contains(String projectName) {
@@ -42,7 +39,7 @@ public class CheckList extends AggregateRoot<CheckListId, DomainEvent> {
     }
 
     public void addTask(ProjectName projectName, String taskDescription) {
-        Optional<Project> project = get(projectName);
+        Optional<Project> project = projects.stream().filter(x -> x.getName().equals(projectName)).findAny();
         if (project.isEmpty()) {
             throw new RuntimeException(format("project '%s' not found", projectName));
         }
@@ -67,7 +64,7 @@ public class CheckList extends AggregateRoot<CheckListId, DomainEvent> {
         for (Project project: projects) {
             for (Task task: project.getTasks()) {
                 if (task.getId().value() == Integer.parseInt(taskId)) {
-                    task.setDone(done);
+                    project.setDone(taskId, done);
                 }
             }
         }
