@@ -3,7 +3,6 @@ package com.codurance.training.tasks.entity;
 import com.codurance.training.tasks.usecase.port.ImmutableTask;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Project {
