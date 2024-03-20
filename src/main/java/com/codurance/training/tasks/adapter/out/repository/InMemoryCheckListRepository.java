@@ -2,7 +2,7 @@ package com.codurance.training.tasks.adapter.out.repository;
 
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.CheckListId;
-import com.codurance.training.tasks.usecase.port.CheckListDto;
+import com.codurance.training.tasks.usecase.port.CheckListPo;
 import com.codurance.training.tasks.usecase.port.CheckListMapper;
 import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
 import com.codurance.training.tasks.usecase.port.out.CheckListRepositoryPeer;
@@ -18,17 +18,17 @@ public class InMemoryCheckListRepository implements CheckListRepository {
 
     @Override
     public Optional<CheckList> findById(CheckListId checkListId) {
-        Optional<CheckListDto> checkList = peer.findById(checkListId.id());
+        Optional<CheckListPo> checkList = peer.findById(checkListId.id());
         return checkList.map(CheckListMapper::toDomain);
     }
 
     @Override
     public void save(CheckList checkList) {
-        peer.save(CheckListMapper.toDto(checkList));
+        peer.save(CheckListMapper.toPo(checkList));
     }
 
     @Override
     public void delete(CheckList checkList) {
-        peer.delete(CheckListMapper.toDto(checkList));
+        peer.delete(CheckListMapper.toPo(checkList));
     }
 }

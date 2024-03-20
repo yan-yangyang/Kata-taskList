@@ -1,7 +1,7 @@
 package com.codurance.training.tasks.usecase.port.in.show;
 
-import com.codurance.training.tasks.entity.Project;
 import com.codurance.training.tasks.usecase.port.ProjectDto;
+import com.codurance.training.tasks.usecase.port.ProjectPo;
 import tw.teddysoft.ezddd.cqrs.usecase.CqrsOutput;
 
 import java.util.List;
