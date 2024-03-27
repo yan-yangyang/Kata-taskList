@@ -7,6 +7,10 @@
 
     <name>Task List</name>
 
+    <properties>
+            <springboot.version>2.7.10</springboot.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -30,6 +34,23 @@
             <artifactId>ezddd-core</artifactId>
             <version>1.0.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -51,7 +72,7 @@
                     <programs>
                         <program>
                             <id>task-list</id>
-                            <mainClass>com.codurance.training.tasks.frame.CheckListApp</mainClass>
+                            <mainClass>com.codurance.training.tasks.io.std.CheckListApp</mainClass>
                         </program>
                     </programs>
                 </configuration>

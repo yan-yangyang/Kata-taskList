@@ -11,7 +11,7 @@ import com.codurance.training.tasks.adapter.out.repository.InMemoryCheckListRepo
 import com.codurance.training.tasks.adapter.out.InMemoryCheckListRepositoryPeer;
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.CheckListId;
-import com.codurance.training.tasks.frame.CheckListApp;
+import com.codurance.training.tasks.io.std.CheckListApp;
 import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
 import com.codurance.training.tasks.usecase.port.in.addproject.AddProjectUseCase;
 import com.codurance.training.tasks.usecase.port.in.addtask.AddTaskUseCase;
@@ -25,7 +25,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.codurance.training.tasks.frame.CheckListApp.CHECK_LIST_ID;
+import static com.codurance.training.tasks.io.std.CheckListApp.CHECK_LIST_ID;
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

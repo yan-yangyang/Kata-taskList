@@ -1,4 +1,4 @@
-package com.codurance.training.tasks.adapter.in;
+package com.codurance.training.tasks.adapter.in.std;
 
 import com.codurance.training.tasks.adapter.out.presenter.HelpPresenter;
 import com.codurance.training.tasks.adapter.out.presenter.ShowPresenter;
@@ -18,7 +18,7 @@ import tw.teddysoft.ezddd.core.usecase.ExitCode;
 
 import java.io.PrintWriter;
 
-import static com.codurance.training.tasks.frame.CheckListApp.CHECK_LIST_ID;
+import static com.codurance.training.tasks.io.std.CheckListApp.CHECK_LIST_ID;
 import static java.lang.String.format;
 
 public class CheckListController {

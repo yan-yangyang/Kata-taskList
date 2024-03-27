@@ -1,6 +1,6 @@
-package com.codurance.training.tasks.frame;
+package com.codurance.training.tasks.io.std;
 
-import com.codurance.training.tasks.adapter.in.CheckListController;
+import com.codurance.training.tasks.adapter.in.std.CheckListController;
 import com.codurance.training.tasks.adapter.out.repository.InMemoryCheckListRepository;
 import com.codurance.training.tasks.adapter.out.InMemoryCheckListRepositoryPeer;
 import com.codurance.training.tasks.entity.*;

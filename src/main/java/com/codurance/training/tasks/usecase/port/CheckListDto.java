@@ -3,6 +3,7 @@ package com.codurance.training.tasks.usecase.port;
 import tw.teddysoft.ezddd.core.usecase.StoreData;
 import tw.teddysoft.ezddd.core.usecase.domainevent.DomainEventData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckListDto implements StoreData {
@@ -36,7 +37,7 @@ public class CheckListDto implements StoreData {
 
     @Override
     public List<DomainEventData> getDomainEventDatas() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

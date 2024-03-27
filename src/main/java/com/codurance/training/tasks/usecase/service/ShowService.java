@@ -2,6 +2,7 @@ package com.codurance.training.tasks.usecase.service;
 
 import com.codurance.training.tasks.entity.CheckList;
 import com.codurance.training.tasks.entity.CheckListId;
+import com.codurance.training.tasks.usecase.port.CheckListMapper;
 import com.codurance.training.tasks.usecase.port.ProjectMapper;
 import com.codurance.training.tasks.usecase.port.out.CheckListRepository;
 import com.codurance.training.tasks.usecase.port.in.show.ShowUseCase;
@@ -26,6 +27,7 @@ public class ShowService implements ShowUseCase {
         return ShowOutPut
                 .create(ShowOutPut.class)
                 .setExitCode(ExitCode.SUCCESS)
-                .SetProjects(checkList.getProjects().stream().map(ProjectMapper::toDto).toList());
+                .setCheckList(CheckListMapper.toDto(checkList))
+                .setProjects(checkList.getProjects().stream().map(ProjectMapper::toDto).toList());
     }
 }
