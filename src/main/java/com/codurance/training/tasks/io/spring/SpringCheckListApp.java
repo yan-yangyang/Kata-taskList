@@ -15,7 +15,7 @@ import java.util.UUID;
 @EntityScan(basePackages={"com.codurance.training.tasks"})
 @SpringBootApplication
 public class SpringCheckListApp extends SpringBootServletInitializer implements CommandLineRunner {
-    public static final String CHECK_LIST_ID = UUID.randomUUID().toString();
+    public static final String CHECK_LIST_ID = "1";
 
     public SpringCheckListApp() {
     }

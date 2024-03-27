@@ -29,21 +29,6 @@ public class CheckListController {
         this.out = out;
     }
 
-    @GetMapping
-    public ResponseEntity<CheckListDto> getCheckListByDefault() {
-        ShowInput showInput = new ShowInput();
-        showInput.setCheckListId(CHECK_LIST_ID);
-        try {
-            var showOutput = showUseCase.execute(showInput);
-
-            new ShowPresenter().present(out, showOutput.getProjects());
-            return ResponseEntity.ok(showOutput.getCheckListDto());
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<CheckListDto> getCheckListById(@PathVariable String id) {
         ShowInput showInput = new ShowInput();
