@@ -28,10 +28,15 @@ public class ProjectController {
     @PostMapping(path = "/checkList/{checkListId}/project", consumes = "application/json", produces = "application/json")
     public ResponseEntity<CqrsOutput> addProject(@PathVariable String checkListId,
                                                  @RequestBody String projectInfo) {
-        String name;
+        String name = "";
 
         JSONObject projectJSON = new JSONObject(projectInfo);
         name = projectJSON.getString("name");
+
+        if (null == name || name.isEmpty()) {
+            return new ResponseEntity<>(CqrsOutput.create().setMessage("Project name cannot be empty."),
+                    HttpStatus.BAD_REQUEST);
+        }
 
         AddProjectInput addProjectInput = new AddProjectInput();
         addProjectInput.setCheckListId(checkListId);

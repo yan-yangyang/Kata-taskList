@@ -31,8 +31,15 @@ public class TaskController {
                                               @PathVariable String projectName,
                                               @RequestBody String taskInfo) {
 
+        String description = "";
+
         JSONObject taskJSON = new JSONObject(taskInfo);
-        String description = taskJSON.getString("description");
+        description = taskJSON.getString("description");
+
+        if (null == description || description.isEmpty()) {
+            return new ResponseEntity<>(CqrsOutput.create().setMessage("Task description cannot be empty."),
+                    HttpStatus.BAD_REQUEST);
+        }
 
         AddTaskInput addTaskInput = new AddTaskInput();
         addTaskInput.setCheckListId(checkListId);
