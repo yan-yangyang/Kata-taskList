@@ -6,10 +6,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tw.teddysoft.ezddd.core.usecase.ExitCode;
 import tw.teddysoft.ezddd.cqrs.usecase.CqrsOutput;
 
@@ -27,6 +24,7 @@ public class ProjectController {
         this.addProjectUseCase = addProjectUseCase;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/checkList/{checkListId}/project", consumes = "application/json", produces = "application/json")
     public ResponseEntity<CqrsOutput> addProject(@PathVariable String checkListId,
                                                  @RequestBody String projectInfo) {

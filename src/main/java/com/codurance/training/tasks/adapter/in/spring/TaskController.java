@@ -25,6 +25,7 @@ public class TaskController {
         this.setDoneUseCase = setDoneUseCase;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/checkList/{checkListId}/project/{projectName}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<CqrsOutput> addTask(@PathVariable String checkListId,
                                               @PathVariable String projectName,
@@ -44,6 +45,7 @@ public class TaskController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/checkList/{checkListId}/project/{projectName}/{id}")
     public ResponseEntity<CqrsOutput> setDone(@PathVariable String checkListId,
                                               @PathVariable String id,

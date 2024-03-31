@@ -6,11 +6,9 @@ import com.codurance.training.tasks.usecase.port.CheckListDto;
 import com.codurance.training.tasks.usecase.port.in.show.ShowInput;
 import com.codurance.training.tasks.usecase.port.in.show.ShowUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.PrintWriter;
 
@@ -29,6 +27,7 @@ public class CheckListController {
         this.out = out;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<CheckListDto> getCheckListById(@PathVariable String id) {
         ShowInput showInput = new ShowInput();
@@ -37,7 +36,7 @@ public class CheckListController {
             var showOutput = showUseCase.execute(showInput);
 
             new ShowPresenter().present(out, showOutput.getProjects());
-            return ResponseEntity.ok(showOutput.getCheckListDto());
+            return new ResponseEntity<>(showOutput.getCheckListDto(), HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
